@@ -1,0 +1,15 @@
+FROM golang:1.21.6
+
+WORKDIR /app
+
+COPY ./auction .
+COPY ./auction/handler ./auction/handler
+
+COPY go.mod go.sum .
+
+RUN go get
+RUN go build -o auctionBin .
+
+EXPOSE 8080
+
+ENTRYPOINT ["/app/auctionBin"]

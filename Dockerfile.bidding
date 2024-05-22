@@ -1,0 +1,15 @@
+FROM golang:1.21.6
+
+WORKDIR /app
+
+COPY ./bidding .
+COPY ./bidding/handler ./bidding/handler
+
+COPY go.mod go.sum .
+
+RUN go get
+RUN go build -o biddingBin .
+
+EXPOSE 8081
+
+ENTRYPOINT ["/app/biddingBin"]
